@@ -1,2 +1,0 @@
-u,v,key,osmid,tunnel,oneway,lanes,ref,name,highway,maxspeed,reversed,length,geometry
-2364215020,3810810940,0,"[377693666, 227759791]",yes,True,3,S3111,"['横龙山隧道', '福龙路']",trunk,80,False,325.222,"LINESTRING (114.0099108 22.5866945, 114.0101491 22.5884941, 114.0102706 22.5893436, 114.0103016 22.5895969)"
