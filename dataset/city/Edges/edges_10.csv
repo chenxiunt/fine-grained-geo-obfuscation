@@ -1,0 +1,2 @@
+u,v,key,osmid,oneway,name,highway,reversed,length,geometry,lanes
+-1,-1,-1,-1,TRUE,?????????,residential,FALSE,144.15,"LINESTRING (114.03938 22.5090731, 114.0380177 22.5093841)",
