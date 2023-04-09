@@ -4,8 +4,7 @@
 
 **Usage**: Run the "main.m" file. After installing MATLAB, open "main.m" and use the "Run" button in the "Live Editor" tab. 
 
-**Variables**: The definition of the variables in the code: 
-
+**Variables**: The definition of the variables in the code: <br />
 (1) *EPSILON*: Privacy budget <br />
 (2) *ETA*: Quality loss constraint constant <br />
 (3) *overallcost*: the expected quality loss <br />
