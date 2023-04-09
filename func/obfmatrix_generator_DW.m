@@ -1,15 +1,19 @@
-function [overallcost, peerMatrix, peerNeighbor, running_time_init, running_time_master, running_time_subproblem, z, cost_distribution, real_cost, iter_stop] ... 
-    = obfmatrix_generator_DW(G, coordinate, PATIENT, EPSILON, ETA, LAMBDA, NR_LOC, filename)
+function [overallcost, peerMatrix, peerNeighbor, running_time_peer, running_time_init, running_time_master, running_time_dual, running_time_subproblem, z, cost_distribution, eie_distribution, real_cost, iter_stop] ... 
+    = obfmatrix_generator_DW(G, coordinate, prior, PATIENT, EPSILON, ETA, LAMBDA, NR_LOC, filename)
     iter_stop = 20; 
     optimal_find = 0; 
     z = zeros(NR_LOC, NR_LOC);
     overallcost = 0; 
     running_time = 0; 
+    running_time_peer = 0;
     running_time_init = 0; 
     running_time_master = 0; 
+    running_time_dual = 0; 
     running_time_subproblem = 0; 
     % peerMatrix 
+    tic
     peerMatrix = peer_location(G, coordinate, PATIENT, NR_LOC, ETA); 
+    running_time_peer = toc;
 %     peerMatrix = ones(NR_LOC, NR_LOC); 
 
     [group, peerMatrix] = peer_group(peerMatrix, NR_LOC); 
@@ -20,9 +24,11 @@ function [overallcost, peerMatrix, peerNeighbor, running_time_init, running_time
     distMatrix = distance_calculation(G, peerMatrix, NR_LOC); 
     % costMatrix: the cost estimation error of two locations given the
     % patient location "PATIENT". 
-    costVector = cost_calculation(G, PATIENT, NR_LOC);
+    costVector = cost_calculation(G, PATIENT, NR_LOC, prior);
     costMatrix = reshape(costVector, NR_LOC, NR_LOC); 
 %    cost_distribution = full(peerMatrix.*costMatrix); 
+
+
 
     cost_distribution = 0;
     real_cost = zeros(1, 30);
@@ -101,7 +107,7 @@ function [overallcost, peerMatrix, peerNeighbor, running_time_init, running_time
         %% Master Dual problem
         tic
         [lambda, pi, mu, cost_vector, dfval(iter, 1), fval_dual(iter, 1), exitflag] = dual_master_DW_1(subproblem, costMatrix); 
-        running_time_master = running_time_master + toc; 
+        running_time_dual = running_time_dual + toc; 
         %% Subproblem (Optimality check)
         running_time_subproblem_ = 0; 
         for l = 1:1:NR_LOC
@@ -137,8 +143,9 @@ function [overallcost, peerMatrix, peerNeighbor, running_time_init, running_time
 %     hold on;
 %     plot(lower_bound)
     %% -----------------------------------------------------------------
+    tic
     [lambda, pi, mu, cost_vector, dfval(iter, 1), fval_dual(iter, 1), exitflag] = dual_master_DW_2(subproblem, costMatrix); 
-
+    running_time_master = toc;
 
     %% ------- find the iteration to stop
     
@@ -162,6 +169,6 @@ function [overallcost, peerMatrix, peerNeighbor, running_time_init, running_time
      
     overallcost = -fval_dual(iter_stop, 1);   
 
-    cost_distribution = cost_error_distribution(z, full(peerMatrix.*costMatrix), NR_LOC); 
+    [cost_distribution, eie_distribution] = cost_error_distribution(z, full(peerMatrix.*costMatrix), coordinate, NR_LOC); 
 end
 

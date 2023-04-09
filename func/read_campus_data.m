@@ -55,7 +55,10 @@ function [coordinate, edge, edge_weight] = read_campus_data()
     y_coordinate = [y_coordinate1; y_coordinate2]; 
     z_coordinate = [z_coordinate1; z_coordinate2]; 
     coordinate = [x_coordinate, y_coordinate, z_coordinate]; 
-    edge_weight = sqrt((x_coordinate(edge_start) - x_coordinate(edge_end)).^2 + (y_coordinate(edge_start) - y_coordinate(edge_end)).^2 + (z_coordinate(edge_start) - z_coordinate(edge_end)).^2);
+    for i = 1:1:size(edge_start, 1)
+        edge_weight(i, 1) = haversine([x_coordinate(edge_start(i, 1)), y_coordinate(edge_start(i, 1))], [x_coordinate(edge_end(i, 1)), y_coordinate(edge_end(i, 1))]); 
+    end
+    % edge_weight = sqrt((x_coordinate(edge_start) - x_coordinate(edge_end)).^2 + (y_coordinate(edge_start) - y_coordinate(edge_end)).^2 + (z_coordinate(edge_start) - z_coordinate(edge_end)).^2);
 
 %     for i = 1:1:size(edge_start, 1)
 %         [edge_start(i)+1, edge_end(i)+1]
