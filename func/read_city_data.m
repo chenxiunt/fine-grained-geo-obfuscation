@@ -2,8 +2,8 @@ function [coordinate, edge, edge_weight] = read_city_data(region)
     coordinate = [];
     edge = [];
     edge_weight = []; 
-    node_file= append('./dataset/city_xls/Nodes/nodes_', int2str(region), '.xlsx');
-    edge_file = append('./dataset/city_xls/Edges/edges_', int2str(region), '.xlsx');
+    node_file= append('./dataset/city/Nodes/nodes_', int2str(region), '.csv');
+    edge_file = append('./dataset/city/Edges/edges_', int2str(region), '.csv');
     nodelist = xlsread(node_file); 
     edgelist = xlsread(edge_file);
 %     node_file_ = append('./dataset/city_xls/Nodes/nodes_', int2str(region), '.xlsx');
@@ -21,7 +21,8 @@ function [coordinate, edge, edge_weight] = read_city_data(region)
         for i = 1:1:size(edgelist, 1)
             edge_start(i, 1) = find(nodelist(:, 1) == edgelist(i, 1));
             edge_end(i, 1) = find(nodelist(:, 1) == edgelist(i, 2));
-            edge_weight(i, 1) = sqrt((coordinate(edge_start(i, 1), 1) - coordinate(edge_end(i, 1), 1))^2 + (coordinate(edge_start(i, 1), 2) - coordinate(edge_end(i, 1), 2))^2); 
+            edge_weight(i, 1) = haversine(coordinate(edge_start(i, 1), 1:2), coordinate(edge_end(i, 1), 1:2));
+            % edge_weight(i, 1) = sqrt((coordinate(edge_start(i, 1), 1) - coordinate(edge_end(i, 1), 1))^2 + (coordinate(edge_start(i, 1), 2) - coordinate(edge_end(i, 1), 2))^2); 
     %         plot([coordinate(edge_start(i, 1), 1) coordinate(edge_end(i, 1), 1)], [coordinate(edge_start(i, 1), 2) coordinate(edge_end(i, 1), 2)], 'k'); 
     %         hold on; 
         end
