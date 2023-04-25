@@ -19,7 +19,7 @@ ETA_SCALE = 0.03;
 % ETA_SCALE = 1/5000;
 EPSILON_SCALE = 2; 
 % EPSILON_SCALE = 500;
-load('.\results\campus\user_ID_campus.mat'); 
+load('.\results\user_ID.mat'); 
 
 %% Obfuscation matrix generatoin
 cost_distribution = []; 
