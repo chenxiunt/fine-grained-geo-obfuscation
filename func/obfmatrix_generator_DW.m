@@ -1,7 +1,7 @@
 function [overallcost, peerMatrix, peerNeighbor, ...
     running_time_init, running_time_master, running_time_subproblem, ...
-    z, cost_distribution, real_cost, iter_stop, convergence] ... 
-    = obfmatrix_generator_DW(G, coordinate, PATIENT, EPSILON, ETA, LAMBDA, NR_LOC, filename)
+    z, cost_distribution, iter_stop, convergence] ... 
+    = obfmatrix_generator_DW(G, coordinate, PATIENT, EPSILON, ETA, LAMBDA, NR_LOC)
     iter_stop = 20; 
     optimal_find = 0; 
     z = zeros(NR_LOC, NR_LOC);
@@ -31,16 +31,6 @@ function [overallcost, peerMatrix, peerNeighbor, ...
 %    cost_distribution = full(peerMatrix.*costMatrix); 
 
     cost_distribution = 0;
-    real_cost = zeros(1, 30);
-    %% Test real wold results
-%     real_result = csvread(filename);
-% %     real_cost = zeros(1, 30); 
-%     % costMatrix = costMatrix.*peerMatrix; 
-%     for i = 1:1:size(real_result, 1)
-%         [real_result(i, 1)+1, real_result(i, 2)+1]
-%         real_cost(1, i) = full(costMatrix(real_result(i, 1)+1, real_result(i, 2)+1)); 
-%     end
-%     return; 
     
     %% Initialization   
     tic

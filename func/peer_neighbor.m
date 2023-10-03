@@ -12,6 +12,4 @@ function peerNeighbor = peer_neighbor(G, peerMatrix, NR_LOC)
             end
         end
     end
-
-    
 end
