@@ -4,6 +4,8 @@
 
 **Usage**: Run the "main.m" file. After installing MATLAB, open "main.m" and use the "Run" button in the "Live Editor" tab. 
 
+**Results**: After running "main.m", the results are stored in the folder "results\city". 
+
 **Variables**: The definition of the variables in the code: <br />
 *EPSILON*: Privacy budget <br />
 *ETA*: Quality loss constraint constant <br />
